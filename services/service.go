@@ -33,7 +33,7 @@ func (s *service) Validate(post *entity.Post) error {
 	}
 
 	if post.Title == "" {
-		err := errors.New("post title is empty")
+		err := errors.New("empty title")
 		return err
 	}
 
