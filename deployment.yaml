@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-go-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-app
+  template:
+    metadata:
+      labels:
+        app: go-app
+    spec:
+      containers:
+      - name: go-app-container
+        image: adesokanayo/go-api-img:1.0.0
+        volumeMounts:
+          - name: storage
+            mountPath: temp/keys/
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        securityContext:
+          capabilities:
+            add: ["SYS_ADMIN"]
+      volumes:
+        - name: storage
+          emptyDir: {}
+        
