@@ -15,7 +15,7 @@ const (
 	collectionNAME string = "posts"
 )
 
-var FireStoreRepo PostRepositoryInterface
+//var FireStoreRepo PostRepositoryInterface
 type repo struct{}
 
 //NewFireStoreRepository should be

@@ -17,7 +17,7 @@ func NewPostController() PostController {
 }
 
 var (
-	postService services.PostService = services.NewPostService()
+	postService  = services.NewPostService()
 )
 
 //PostController is
@@ -33,7 +33,7 @@ func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	posts, err := postService.FindAll()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resp).Encode(errors.ServiceError{"Error getting the post"})
+		json.NewEncoder(resp).Encode(errors.ServiceError{Message:"Error getting the post"})
 	}
 	resp.WriteHeader(http.StatusOK)
 	json.NewEncoder(resp).Encode(posts)

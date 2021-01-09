@@ -9,7 +9,7 @@ import (
 )
 
 type service struct{}
-type PostService postingInterface
+//type PostService postingInterface
 
 var (
 	repo = repository.NewFireStoreRepository()
@@ -42,10 +42,10 @@ func (s *service) Validate(post *entity.Post) error {
 func (s *service) Create(post *entity.Post) (*entity.Post, error) {
 
 	post.ID = rand.Int63()
-	return repository.FireStoreRepo.Save(post)
+	return repo.Save(post)
 
 }
 
 func (s *service) FindAll() ([]entity.Post, error) {
-	return repository.FireStoreRepo.FindAll()
+	return repo.FindAll()
 }

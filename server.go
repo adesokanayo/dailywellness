@@ -3,31 +3,36 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/adesokanayo/innovation/controller"
 
 	router "github.com/adesokanayo/innovation/http"
-)
-
-const port string = ":8000"
+) //
 
 var (
-	postController =  controller.NewPostController()
-	httpRouter   = router.NewMuxRouter
+	postController controller.PostController = controller.NewPostController()
+	httpRouter     router.Router             = router.NewMuxRouter()
 )
 
 func main() {
- startApp()
+	startApp()
 }
 
-func startApp(){
+func startApp() {
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8000"
+	}
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
-		fmt.Println("up and running...")
+		fmt.Println("Landing Page  loaded ")
 
 	})
 
 	httpRouter.GET("/posts", postController.GetPosts)
 	httpRouter.POST("/posts", postController.AddPosts)
 
-	httpRouter.SERVE(port)
+	httpRouter.SERVE(":" + port)
 }
