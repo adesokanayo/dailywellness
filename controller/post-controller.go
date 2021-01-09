@@ -24,6 +24,7 @@ var (
 type PostController interface {
 	GetPosts(response http.ResponseWriter, request *http.Request)
 	AddPosts(response http.ResponseWriter, request *http.Request)
+	GetDailyPost(response http.ResponseWriter, request *http.Request)
 }
 
 //GetPosts retrieve all posts
@@ -31,6 +32,19 @@ func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := postService.FindAll()
+	if err != nil {
+		resp.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(resp).Encode(errors.ServiceError{Message:"Error getting the post"})
+	}
+	resp.WriteHeader(http.StatusOK)
+	json.NewEncoder(resp).Encode(posts)
+
+}
+
+func (*controller) GetDailyPost(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-type", "application/json")
+
+	posts, err := postService.FindOne()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(resp).Encode(errors.ServiceError{Message:"Error getting the post"})

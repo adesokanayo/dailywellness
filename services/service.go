@@ -3,12 +3,14 @@ package services
 import (
 	"errors"
 	"math/rand"
+	"time"
 
 	"github.com/adesokanayo/innovation/entity"
 	"github.com/adesokanayo/innovation/repository"
 )
 
 type service struct{}
+
 //type PostService postingInterface
 
 var (
@@ -23,6 +25,7 @@ type postingInterface interface {
 	Validate(post *entity.Post) error
 	Create(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
+	FindOne() (*entity.Post, error)
 }
 
 func (s *service) Validate(post *entity.Post) error {
@@ -48,4 +51,13 @@ func (s *service) Create(post *entity.Post) (*entity.Post, error) {
 
 func (s *service) FindAll() ([]entity.Post, error) {
 	return repo.FindAll()
+}
+
+func (s *service) FindOne() (*entity.Post, error) {
+
+	rand.Seed(time.Now().UnixNano())
+	min := 1
+	max := 5
+	num := rand.Intn(max-min+1) + min
+	return repo.FindOne(int64(num))
 }
