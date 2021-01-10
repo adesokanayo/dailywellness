@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/adesokanayo/innovation/entity"
-	"github.com/adesokanayo/innovation/repository"
+	"github.com/adesokanayo/dailywellness/entity"
+	"github.com/adesokanayo/dailywellness/repository"
 )
 
 type service struct{}

@@ -10,7 +10,7 @@ RUN go get .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 RUN apk add --no-cache ca-certificates
 FROM scratch
-WORKDIR /home/innovation
+WORKDIR /home/dailywellness
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /app .
 CMD ["./app"]

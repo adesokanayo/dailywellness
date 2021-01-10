@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/adesokanayo/innovation/entity"
-	"github.com/adesokanayo/innovation/errors"
-	"github.com/adesokanayo/innovation/services"
+	"github.com/adesokanayo/dailywellness/entity"
+	"github.com/adesokanayo/dailywellness/errors"
+	"github.com/adesokanayo/dailywellness/services"
 )
 
 type controller struct{}

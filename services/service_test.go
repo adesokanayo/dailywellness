@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/adesokanayo/innovation/entity"
+	"github.com/adesokanayo/dailywellness/entity"
 	"github.com/stretchr/testify/assert"
 )
 

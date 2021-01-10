@@ -1,7 +1,7 @@
 package repository
 
 import (
-	entity "github.com/adesokanayo/innovation/entity"
+	entity "github.com/adesokanayo/dailywellness/entity"
 )
 
 //PostRepositoryInterface contains exposed Interface

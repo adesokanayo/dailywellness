@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/adesokanayo/innovation/controller"
+	"github.com/adesokanayo/dailywellness/controller"
 
-	router "github.com/adesokanayo/innovation/http"
+	router "github.com/adesokanayo/dailywellness/http"
 ) //
 
 var (
