@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-go-app
+  name: dailywellness-API
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: go-app
+      app: dailywellness-app
   template:
     metadata:
       labels:
-        app: go-app
+        app: dailywellness-app
     spec:
       containers:
-      - name: go-app-container
-        image: adesokanayo/go-api-img:1.0.0
+      - name: dailywellness-container
+        image: adesokanayo/dailywellness:1.0.0
         volumeMounts:
           - name: storage
             mountPath: temp/keys/
