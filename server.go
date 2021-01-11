@@ -24,7 +24,7 @@ func startApp() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = "8000"
+		port = "3000"
 	}
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Println("Landing Page  loaded ")

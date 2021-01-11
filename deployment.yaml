@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dailywellness-container
-        image: adesokanayo/dailywellness:1.0.0
+        image: adesokanayo/dailywellness:latest
         volumeMounts:
           - name: storage
             mountPath: temp/keys/
