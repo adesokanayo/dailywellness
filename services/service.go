@@ -57,7 +57,7 @@ func (s *service) FindOne() (*entity.Post, error) {
 
 	rand.Seed(time.Now().UnixNano())
 	min := 1
-	max := 5
+	max := 100
 	num := rand.Intn(max-min+1) + min
 	return repo.FindOne(int64(num))
 }

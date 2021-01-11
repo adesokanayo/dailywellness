@@ -37,6 +37,7 @@ func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 		"ID":    post.ID,
 		"Title": post.Title,
 		"Text":  post.Text,
+		"Number":post.Number,
 	})
 
 	if err != nil {
@@ -76,6 +77,7 @@ func (*repo) FindAll() ([]entity.Post, error) {
 			ID:    doc.Data()["ID"].(int64),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),
+			Number: doc.Data()["Number"].(int64),
 		}
 		posts = append(posts, post)
 
@@ -96,7 +98,7 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 
 	var post entity.Post
 	done := iterator.Done
-	myiterator := client.Collection(collectionNAME).Where("number", "==", num).Documents(ctx)
+	myiterator := client.Collection(collectionNAME).Where("Number", "==", num).Documents(ctx)
 
 	for {
 		doc, err := myiterator.Next()
@@ -112,6 +114,7 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 			ID:    doc.Data()["ID"].(int64),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),
+			Number: doc.Data()["Number"].(int64),
 		}
 
 	}
