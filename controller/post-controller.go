@@ -76,7 +76,6 @@ func (*controller) AddPosts(resp http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(resp).Encode(errors.ServiceError{Message: err2.Error()})
 		return
 	}
-	postService.Create(&post)
 	resp.WriteHeader(http.StatusOK)
 	json.NewEncoder(resp).Encode(result)
 }
