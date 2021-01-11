@@ -31,7 +31,7 @@ func startApp() {
 
 	})
 
-	httpRouter.GET("/tip", postController.GetPosts)
+	httpRouter.GET("/tips", postController.GetPosts)
 	httpRouter.GET("/dailytip", postController.GetDailyPost)
 	httpRouter.POST("/tips", postController.AddPosts)
 
