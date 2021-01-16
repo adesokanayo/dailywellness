@@ -8,5 +8,6 @@ import (
 type PostRepositoryInterface interface {
 	Save(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
-	FindOne(num int64 )(*entity.Post, error)
+	FindOne(num int64) (*entity.Post, error)
+	FindToday() (*entity.Post, error)
 }

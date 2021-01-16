@@ -26,6 +26,7 @@ type postingInterface interface {
 	Create(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
 	FindOne() (*entity.Post, error)
+	FindToday() (*entity.Post, error)
 }
 
 func (s *service) Validate(post *entity.Post) error {
@@ -60,4 +61,9 @@ func (s *service) FindOne() (*entity.Post, error) {
 	max := 100
 	num := rand.Intn(max-min+1) + min
 	return repo.FindOne(int64(num))
+}
+
+func (s *service) FindToday() (*entity.Post, error) {
+
+	return repo.FindToday()
 }

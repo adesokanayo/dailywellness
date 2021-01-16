@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"log"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	"github.com/adesokanayo/dailywellness/entity"
@@ -103,6 +104,44 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 	for {
 		doc, err := myiterator.Next()
 		//log.Println("Item: %v", doc)
+		if err != nil {
+			if err == done {
+				break
+			}
+			log.Fatalf("Failed to read documents: %v", err)
+			return nil, err
+		}
+		post = entity.Post{
+			ID:    doc.Data()["ID"].(int64),
+			Title: doc.Data()["Title"].(string),
+			Text:  doc.Data()["Text"].(string),
+			Number: doc.Data()["Number"].(int64),
+		}
+
+	}
+
+	return &post, nil
+}
+
+func (*repo) FindToday() (*entity.Post, error) {
+
+	ctx := context.Background()
+	client, err := firestore.NewClient(ctx, projectID)
+	if err != nil {
+		log.Fatalf("Failed to create a firestore client: %v", err)
+		return nil, err
+	}
+
+	t:= time.Now().YearDay()
+	today := int64(t)
+	defer client.Close()
+
+	var post entity.Post
+	done := iterator.Done
+	myiterator := client.Collection(collectionNAME).Where("Number", "==", today).Documents(ctx)
+
+	for {
+		doc, err := myiterator.Next()
 		if err != nil {
 			if err == done {
 				break

@@ -31,9 +31,10 @@ func startApp() {
 
 	})
 
-	httpRouter.GET("/tips", postController.GetPosts)
-	httpRouter.GET("/dailytip", postController.GetDailyPost)
-	httpRouter.POST("/tips", postController.AddPosts)
+	httpRouter.GET("/tips", postController.GetTips)
+	httpRouter.GET("/dailytip", postController.GetDailyTip)
+	httpRouter.POST("/tips", postController.AddTips)
+	httpRouter.GET("/randomtip", postController.GetRandomTip)
 
 	httpRouter.SERVE(":" + port)
 }
