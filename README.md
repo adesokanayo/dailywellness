@@ -1,5 +1,7 @@
 # dailywellness
 
+Get a wellness tip delivered daily to your team channel on slack or teams.
+
 Devlopers have the tendencies to be among the most unhealthy folks in the entire IT landscape. This is because most programmars spent most of their lives behind the computer screen. Some hardly put up exerices or even eat nutrituous food.
 
 Over the years , these eating habits and lack of exercise have a potential to leads to health issues. This app will help you 365 days in a year by giving you health tips and challenging you to take actions every day.
