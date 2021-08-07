@@ -12,16 +12,16 @@ import (
 type controller struct{}
 
 //NewPostController creates a controller instance
-func NewPostController() PostController {
+func NewPostController() TipsManager {
 	return &controller{}
 }
 
 var (
-	postService = services.NewPostService()
+	postService = services.NewTipService()
 )
 
-//PostController is
-type PostController interface {
+//TipsManager implements all the operations we need on a post.
+type TipsManager interface {
 	GetTips(response http.ResponseWriter, request *http.Request)
 	AddTips(response http.ResponseWriter, request *http.Request)
 	GetDailyTip(response http.ResponseWriter, request *http.Request)
@@ -29,7 +29,7 @@ type PostController interface {
 }
 
 //GetTips retrieve all posts
-func (*controller) GetTips(resp http.ResponseWriter, req *http.Request) {
+func (c *controller) GetTips(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := postService.FindAll()
@@ -42,7 +42,7 @@ func (*controller) GetTips(resp http.ResponseWriter, req *http.Request) {
 
 }
 
-func (*controller) GetDailyTip(resp http.ResponseWriter, req *http.Request) {
+func (c *controller) GetDailyTip(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := postService.FindToday()
@@ -55,7 +55,7 @@ func (*controller) GetDailyTip(resp http.ResponseWriter, req *http.Request) {
 
 }
 
-func (*controller) GetRandomTip(resp http.ResponseWriter, req *http.Request) {
+func (c *controller) GetRandomTip(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := postService.FindOne()
@@ -68,9 +68,9 @@ func (*controller) GetRandomTip(resp http.ResponseWriter, req *http.Request) {
 
 }
 
-func (*controller) AddTips(resp http.ResponseWriter, req *http.Request) {
+func (c *controller) AddTips(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
-	var post entity.Post
+	var post entity.Tip
 	err := json.NewDecoder(req.Body).Decode(&post)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)

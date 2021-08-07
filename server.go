@@ -11,8 +11,8 @@ import (
 ) //
 
 var (
-	postController controller.PostController = controller.NewPostController()
-	httpRouter     router.Router             = router.NewMuxRouter()
+	postController controller.TipsManager = controller.NewPostController()
+	httpRouter     router.Router          = router.NewMuxRouter()
 )
 
 func main() {
@@ -26,11 +26,21 @@ func startApp() {
 	if port == "" {
 		port = "3000"
 	}
-	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
+	httpRouter.GET("/health", func(resp http.ResponseWriter, req *http.Request) {
+		resp.Write([]byte("Health check "))
+		resp.WriteHeader((http.StatusOK))
+		resp.Write([]byte("Health check "))
 		fmt.Println("Landing Page  loaded ")
 
 	})
 
+	httpRouter.GET("/readiness", func(resp http.ResponseWriter, req *http.Request) {
+		resp.Write([]byte("readiness check "))
+		resp.WriteHeader((http.StatusOK))
+		resp.Write([]byte("Readiness check "))
+		fmt.Println("Landing Page  loaded ")
+
+	})
 	httpRouter.GET("/tips", postController.GetTips)
 	httpRouter.GET("/dailytip", postController.GetDailyTip)
 	httpRouter.POST("/tips", postController.AddTips)

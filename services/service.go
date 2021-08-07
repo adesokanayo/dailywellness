@@ -11,25 +11,23 @@ import (
 
 type service struct{}
 
-//type PostService postingInterface
-
 var (
 	repo = repository.NewFireStoreRepository()
 )
 
-func NewPostService() postingInterface {
+func NewTipService() postingInterface {
 	return &service{}
 }
 
 type postingInterface interface {
-	Validate(post *entity.Post) error
-	Create(post *entity.Post) (*entity.Post, error)
-	FindAll() ([]entity.Post, error)
-	FindOne() (*entity.Post, error)
-	FindToday() (*entity.Post, error)
+	Validate(post *entity.Tip) error
+	Create(post *entity.Tip) (*entity.Tip, error)
+	FindAll() ([]entity.Tip, error)
+	FindOne() (*entity.Tip, error)
+	FindToday() (*entity.Tip, error)
 }
 
-func (s *service) Validate(post *entity.Post) error {
+func (s *service) Validate(post *entity.Tip) error {
 
 	if post == nil {
 		err := errors.New("empty post")
@@ -43,18 +41,18 @@ func (s *service) Validate(post *entity.Post) error {
 
 	return nil
 }
-func (s *service) Create(post *entity.Post) (*entity.Post, error) {
+func (s *service) Create(post *entity.Tip) (*entity.Tip, error) {
 
 	post.ID = rand.Int63()
 	return repo.Save(post)
 
 }
 
-func (s *service) FindAll() ([]entity.Post, error) {
+func (s *service) FindAll() ([]entity.Tip, error) {
 	return repo.FindAll()
 }
 
-func (s *service) FindOne() (*entity.Post, error) {
+func (s *service) FindOne() (*entity.Tip, error) {
 
 	rand.Seed(time.Now().UnixNano())
 	min := 1
@@ -63,7 +61,7 @@ func (s *service) FindOne() (*entity.Post, error) {
 	return repo.FindOne(int64(num))
 }
 
-func (s *service) FindToday() (*entity.Post, error) {
+func (s *service) FindToday() (*entity.Tip, error) {
 
 	return repo.FindToday()
 }

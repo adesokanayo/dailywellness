@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dailywellness-API
+  name: dailywellness-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: dailywellness-app
@@ -30,4 +30,4 @@ spec:
       volumes:
         - name: storage
           emptyDir: {}
-        
+     

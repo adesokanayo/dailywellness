@@ -16,3 +16,8 @@ Slack Webhook URL: Slack allows you to generate incoming webhooks for your team 
 
 
 Contributions are welcome
+
+How to Run 
+```
+
+```

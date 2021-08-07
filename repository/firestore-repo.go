@@ -24,7 +24,7 @@ func NewFireStoreRepository() PostRepositoryInterface {
 	return &repo{}
 }
 
-func (*repo) Save(post *entity.Post) (*entity.Post, error) {
+func (*repo) Save(post *entity.Tip) (*entity.Tip, error) {
 
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, projectID)
@@ -49,7 +49,7 @@ func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 	return post, nil
 }
 
-func (*repo) FindAll() ([]entity.Post, error) {
+func (*repo) FindAll() ([]entity.Tip, error) {
 
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, projectID)
@@ -60,7 +60,7 @@ func (*repo) FindAll() ([]entity.Post, error) {
 
 	defer client.Close()
 
-	var posts []entity.Post
+	var posts []entity.Tip
 	done := iterator.Done
 	myiterator := client.Collection(collectionNAME).Documents(ctx)
 
@@ -74,7 +74,7 @@ func (*repo) FindAll() ([]entity.Post, error) {
 			log.Fatalf("Failed to read documents: %v", err)
 			return nil, err
 		}
-		post := entity.Post{
+		post := entity.Tip{
 			ID:    doc.Data()["ID"].(int64),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),
@@ -86,7 +86,7 @@ func (*repo) FindAll() ([]entity.Post, error) {
 	return posts, nil
 }
 
-func (*repo) FindOne(num int64) (*entity.Post, error) {
+func (*repo) FindOne(num int64) (*entity.Tip, error) {
 
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, projectID)
@@ -97,7 +97,7 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 
 	defer client.Close()
 
-	var post entity.Post
+	var post entity.Tip
 	done := iterator.Done
 	myiterator := client.Collection(collectionNAME).Where("Number", "==", num).Documents(ctx)
 
@@ -111,7 +111,7 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 			log.Fatalf("Failed to read documents: %v", err)
 			return nil, err
 		}
-		post = entity.Post{
+		post = entity.Tip{
 			ID:    doc.Data()["ID"].(int64),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),
@@ -123,7 +123,7 @@ func (*repo) FindOne(num int64) (*entity.Post, error) {
 	return &post, nil
 }
 
-func (*repo) FindToday() (*entity.Post, error) {
+func (*repo) FindToday() (*entity.Tip, error) {
 
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, projectID)
@@ -136,7 +136,7 @@ func (*repo) FindToday() (*entity.Post, error) {
 	today := int64(t)
 	defer client.Close()
 
-	var post entity.Post
+	var post entity.Tip
 	done := iterator.Done
 	myiterator := client.Collection(collectionNAME).Where("Number", "==", today).Documents(ctx)
 
@@ -149,7 +149,7 @@ func (*repo) FindToday() (*entity.Post, error) {
 			log.Fatalf("Failed to read documents: %v", err)
 			return nil, err
 		}
-		post = entity.Post{
+		post = entity.Tip{
 			ID:    doc.Data()["ID"].(int64),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),

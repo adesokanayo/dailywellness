@@ -6,8 +6,8 @@ import (
 
 //PostRepositoryInterface contains exposed Interface
 type PostRepositoryInterface interface {
-	Save(post *entity.Post) (*entity.Post, error)
-	FindAll() ([]entity.Post, error)
-	FindOne(num int64) (*entity.Post, error)
-	FindToday() (*entity.Post, error)
+	Save(post *entity.Tip) (*entity.Tip, error)
+	FindAll() ([]entity.Tip, error)
+	FindOne(num int64) (*entity.Tip, error)
+	FindToday() (*entity.Tip, error)
 }
