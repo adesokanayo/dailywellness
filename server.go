@@ -28,7 +28,7 @@ func startApp() {
 	}
 	httpRouter.GET("/health", func(resp http.ResponseWriter, req *http.Request) {
 		resp.Write([]byte("Health check "))
-		resp.WriteHeader((http.StatusOK))
+		resp.WriteHeader(http.StatusOK)
 		resp.Write([]byte("Health check "))
 		fmt.Println("Landing Page  loaded ")
 
@@ -36,7 +36,7 @@ func startApp() {
 
 	httpRouter.GET("/readiness", func(resp http.ResponseWriter, req *http.Request) {
 		resp.Write([]byte("readiness check "))
-		resp.WriteHeader((http.StatusOK))
+		resp.WriteHeader(http.StatusOK)
 		resp.Write([]byte("Readiness check "))
 		fmt.Println("Landing Page  loaded ")
 

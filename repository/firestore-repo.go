@@ -35,10 +35,10 @@ func (*repo) Save(post *entity.Tip) (*entity.Tip, error) {
 
 	defer client.Close()
 	_, _, err = client.Collection(collectionNAME).Add(ctx, map[string]interface{}{
-		"ID":    post.ID,
-		"Title": post.Title,
-		"Text":  post.Text,
-		"Number":post.Number,
+		"ID":     post.ID,
+		"Title":  post.Title,
+		"Text":   post.Text,
+		"Number": post.Number,
 	})
 
 	if err != nil {
@@ -75,9 +75,9 @@ func (*repo) FindAll() ([]entity.Tip, error) {
 			return nil, err
 		}
 		post := entity.Tip{
-			ID:    doc.Data()["ID"].(int64),
-			Title: doc.Data()["Title"].(string),
-			Text:  doc.Data()["Text"].(string),
+			ID:     doc.Data()["ID"].(int64),
+			Title:  doc.Data()["Title"].(string),
+			Text:   doc.Data()["Text"].(string),
 			Number: doc.Data()["Number"].(int64),
 		}
 		posts = append(posts, post)
@@ -112,9 +112,9 @@ func (*repo) FindOne(num int64) (*entity.Tip, error) {
 			return nil, err
 		}
 		post = entity.Tip{
-			ID:    doc.Data()["ID"].(int64),
-			Title: doc.Data()["Title"].(string),
-			Text:  doc.Data()["Text"].(string),
+			ID:     doc.Data()["ID"].(int64),
+			Title:  doc.Data()["Title"].(string),
+			Text:   doc.Data()["Text"].(string),
 			Number: doc.Data()["Number"].(int64),
 		}
 
@@ -132,7 +132,7 @@ func (*repo) FindToday() (*entity.Tip, error) {
 		return nil, err
 	}
 
-	t:= time.Now().YearDay()
+	t := time.Now().YearDay()
 	today := int64(t)
 	defer client.Close()
 
@@ -150,9 +150,9 @@ func (*repo) FindToday() (*entity.Tip, error) {
 			return nil, err
 		}
 		post = entity.Tip{
-			ID:    doc.Data()["ID"].(int64),
-			Title: doc.Data()["Title"].(string),
-			Text:  doc.Data()["Text"].(string),
+			ID:     doc.Data()["ID"].(int64),
+			Title:  doc.Data()["Title"].(string),
+			Text:   doc.Data()["Text"].(string),
 			Number: doc.Data()["Number"].(int64),
 		}
 

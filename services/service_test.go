@@ -13,8 +13,8 @@ var (
 
 	getPost      func(entity.Tip) (*entity.Tip, error)
 	validatePost func(entity.Tip) error
-	findAllPost   func() ([]entity.Tip, error)
-	createPost  func(*entity.Tip)(*entity.Tip, error)
+	findAllPost  func() ([]entity.Tip, error)
+	createPost   func(*entity.Tip) (*entity.Tip, error)
 )
 
 type mockPosting struct{}
@@ -44,7 +44,7 @@ func TestValidateEmptyTitle(t *testing.T) {
 	//arrange
 	emptyTitlepost := entity.Tip{ID: 1}
 
-	validatePost =  func(entity.Tip) error{
+	validatePost = func(entity.Tip) error {
 		return errors.New("empty title")
 	}
 	//act
@@ -58,7 +58,7 @@ func TestValidateEmptyTitle(t *testing.T) {
 
 func TestValidateEmptyPost(t *testing.T) {
 	//arrange
-	validatePost =  func(entity.Tip) error{
+	validatePost = func(entity.Tip) error {
 		return errors.New("empty post")
 	}
 	//act
@@ -71,7 +71,7 @@ func TestValidateEmptyPost(t *testing.T) {
 func TestValidate_GoodPost(t *testing.T) {
 	//arrange
 	post := entity.Tip{ID: 1, Title: "Title", Text: "Good Post"}
-	validatePost =  func(entity.Tip) error{
+	validatePost = func(entity.Tip) error {
 		return nil
 	}
 	//act
@@ -85,10 +85,10 @@ func TestCreatePost(t *testing.T) {
 	//arrange
 	post := entity.Tip{ID: 1, Title: "Title", Text: "Good Post"}
 
-	createPost = func (post *entity.Tip) (*entity.Tip, error){
+	createPost = func(post *entity.Tip) (*entity.Tip, error) {
 		return post, nil
 
-	} 
+	}
 	//act
 	newPost, err := mockPostingService.Create(&post)
 
@@ -98,14 +98,13 @@ func TestCreatePost(t *testing.T) {
 }
 
 func TestFindAll(t *testing.T) {
-	var posts  []entity.Tip
+	var posts []entity.Tip
 
 	post1 := entity.Tip{ID: 1, Title: "Title", Text: "Good Post"}
 	post2 := entity.Tip{ID: 2, Title: "Title2", Text: "Good Post2"}
 	posts = append(posts, post1, post2)
 
-	
-	findAllPost =   func() ([]entity.Tip, error){
+	findAllPost = func() ([]entity.Tip, error) {
 		return posts, nil
 	}
 	newPosts, err := mockPostingService.FindAll()

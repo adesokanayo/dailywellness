@@ -19,13 +19,15 @@ func NewTipService() postingInterface {
 	return &service{}
 }
 
-type postingInterface interface {
-	Validate(post *entity.Tip) error
-	Create(post *entity.Tip) (*entity.Tip, error)
-	FindAll() ([]entity.Tip, error)
-	FindOne() (*entity.Tip, error)
-	FindToday() (*entity.Tip, error)
-}
+type (
+	postingInterface interface {
+		Validate(post *entity.Tip) error
+		Create(post *entity.Tip) (*entity.Tip, error)
+		FindAll() ([]entity.Tip, error)
+		FindOne() (*entity.Tip, error)
+		FindToday() (*entity.Tip, error)
+	}
+)
 
 func (s *service) Validate(post *entity.Tip) error {
 

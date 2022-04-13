@@ -1,0 +1,65 @@
+name: Test
+on: [push, pull_request]
+env:
+  ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+  HTTP_PORT: 8004
+  GRPC_PORT: 9004
+  GRPC_HEALTH_PORT: 10004
+  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+  JWT_PUBLIC_KEY: LS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tCk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBdi9WR01uV2ZzM1gzNC8ycXRXenIKOXVuNjkxSXFZS2s3RWhPVE9ZT1RzRU9yNzZBZzBwZ2FXTVJ2VUFya0hudHhaL2I0VVB6dE9UT3R2akhITFlFSwpoRTA4RVcxaVVKSWpBR3JtZlkyYWlIcUF0N29JU1Jkc0plQVpCWjE0dU1aK2JsbkQ4OFRFQ294TVNCem83dHIyCnBOR1RpREs4WlQ2dFI0Tmk4WVh1TXVhY0N5V01ZNE03S3h0a0ZQVHYvalljZ05EcnhJeVphQzRYaVBlcW92NGIKVGoxRklad0xhaUF6Zklsenltbm5SUDlqN2ZUZ25kOHVYYUlqeXNKMDJubVJCY2IrOFU0OUlaVnF6ZjFjWTZDZwpBUENpT2piWU9nWEJhTjZwTFRuY2d4MEJISS9lU2xUK0w0L05vVlpyeGlnd2ZkV3RxL24wQkFXaDhzZDFHTVZFCk5RSURBUUFCCi0tLS0tRU5EIFJTQSBQVUJMSUMgS0VZLS0tLS0K
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        go-version: [1.17.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install golangci-lint
+        run: |
+          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.0
+      - name: Run linters
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          golangci-lint run --config=.golangci_lint.yaml
+  test:
+    needs: lint
+    strategy:
+      matrix:
+        go-version: [1.17.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: |
+          go build
+          go test -v ./... -coverprofile=coverage.txt -cover
+
+      - name: Create Env File and Load Secret
+        run: |
+          touch .dailywellness.env
+          echo ${{ secrets.DAILYWELLNESS_ENV }} >> .dailywellness.env 
+
+      - name: List Directory
+        run: |
+          ls
+          cat .dailywellness.env
