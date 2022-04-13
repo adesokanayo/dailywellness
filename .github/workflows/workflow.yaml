@@ -48,7 +48,7 @@ jobs:
       - name: Create Env File and Load Secret
         run: |
           touch .dailywellness.env
-          echo ${{ secrets.DAILYWELLNESS_ENV }} >> .dailywellness.env 
+          echo ${{ secrets.DAILYWELLNESS_ENV }} > .dailywellness.env 
 
       - name: List Directory
         run: |
