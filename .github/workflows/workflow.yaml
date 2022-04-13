@@ -57,4 +57,4 @@ jobs:
 
       - name: Use Secret in Redis launch
         run: |
-          docker run --envfile .dailywellness.env redis
+          docker run --env-file .dailywellness.env redis
