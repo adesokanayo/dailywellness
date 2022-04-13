@@ -2,7 +2,7 @@ name: Test
 on: [push, pull_request]
 env:
   ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
-  HTTP_PORT: 8004
+  HTTP_PORT: ${{ secrets.HTTP_PORT}}
   GRPC_PORT: 9004
   GRPC_HEALTH_PORT: 10004
 
@@ -54,3 +54,7 @@ jobs:
         run: |
           ls
           cat .dailywellness.env
+
+      - name: Use Secret in Redis launch
+        run: |
+          docker run --envfile .dailywellness.env redis
