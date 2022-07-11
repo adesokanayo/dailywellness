@@ -24,6 +24,7 @@ var (
 type TipsManager interface {
 	GetTips(response http.ResponseWriter, request *http.Request)
 	AddTips(response http.ResponseWriter, request *http.Request)
+	GetTip(response http.ResponseWriter, request *http.Request)
 	GetDailyTip(response http.ResponseWriter, request *http.Request)
 	GetRandomTip(response http.ResponseWriter, request *http.Request)
 }
@@ -43,6 +44,19 @@ func (c *controller) GetTips(resp http.ResponseWriter, req *http.Request) {
 }
 
 func (c *controller) GetDailyTip(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-type", "application/json")
+
+	posts, err := postService.FindToday()
+	if err != nil {
+		resp.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(resp).Encode(errors.ServiceError{Message: "Error getting the post"})
+	}
+	resp.WriteHeader(http.StatusOK)
+	json.NewEncoder(resp).Encode(posts)
+
+}
+
+func (c *controller) GetTip(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := postService.FindToday()

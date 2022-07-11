@@ -43,6 +43,7 @@ func startApp() {
 	})
 	httpRouter.GET("/tips", postController.GetTips)
 	httpRouter.GET("/dailytip", postController.GetDailyTip)
+	httpRouter.POST("/dailytip", postController.GetTip)
 	httpRouter.POST("/tips", postController.AddTips)
 	httpRouter.GET("/randomtip", postController.GetRandomTip)
 
