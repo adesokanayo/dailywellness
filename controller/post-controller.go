@@ -59,7 +59,7 @@ func (c *controller) GetDailyTip(resp http.ResponseWriter, req *http.Request) {
 func (c *controller) GetTip(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
-	posts, err := postService.FindToday()
+	posts, err := postService.FindOne()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(resp).Encode(errors.ServiceError{Message: "Error getting the post"})
